@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.backends._legacy:_Backend"
+
+[project]
+name = "hippocampus"
+version = "1.0.0"
+description = "像人脑一样分级记忆的 AI 对话系统"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+keywords = ["ai", "memory", "streamlit", "chromadb", "deepseek"]
+dependencies = [
+    "streamlit>=1.41",
+    "openai>=1.68",
+    "chromadb>=1.0",
+    "python-dotenv>=1.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/你的用户名/hippocampus"

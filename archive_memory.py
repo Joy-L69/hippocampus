@@ -1,32 +1,20 @@
 """
-archive_memory.py - 记忆归档脚本
+archive_memory.py — 记忆归档脚本
 
-功能：
-  扫描 ChromaDB 主记忆集合，将 last_accessed 超过 30 天的记忆
-  移至 archive_collection 归档集合，并从主集合中删除。
+将 last_accessed 超过 30 天的记忆移至 archive_collection，
+并从主集合中删除。
 
-用法：
-  python archive_memory.py
+用法:
+    python archive_memory.py
 """
-import chromadb
-from chromadb.utils.embedding_functions import DefaultEmbeddingFunction
-import os
 from datetime import datetime
+
+from hippocampus import db
 
 
 def main():
-    db_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "chromadb_data")
-    chroma_client = chromadb.PersistentClient(path=db_path)
-
-    collection = chroma_client.get_or_create_collection(
-        name="hippocampus_memories",
-        embedding_function=DefaultEmbeddingFunction()
-    )
-
-    archive = chroma_client.get_or_create_collection(
-        name="archive_collection",
-        embedding_function=DefaultEmbeddingFunction()
-    )
+    collection = db.get_collection()
+    archive = db.get_archive_collection()
 
     all_data = collection.get()
     if not all_data or not all_data["ids"]:
@@ -62,7 +50,6 @@ def main():
         documents=to_archive_docs,
         metadatas=to_archive_metas
     )
-
     collection.delete(ids=to_archive_ids)
 
     print(f"已归档 {len(to_archive_ids)} 条记忆到 archive_collection。")

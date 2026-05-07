@@ -1,15 +1,25 @@
-# 虚拟环境
-venv/
-env/
+# 环境变量（含 API Key — 绝对不要提交！）
+.env
 
-# Python 缓存
+# 本地向量数据库（每人一份，不应提交）
+chromadb_data/
+
+# Python
 __pycache__/
-*.pyc
+*.py[cod]
+*.egg-info/
+dist/
+build/
 
-# 本地记忆库（每个人应该有自己的）
-.chroma/
-my_memory_brain/
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
 
-# 系统文件
+# OS
 .DS_Store
 Thumbs.db
+
+# Streamlit
+.streamlit/
